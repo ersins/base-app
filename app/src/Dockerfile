@@ -15,7 +15,8 @@ ENV APP_HOME=/home/appuser/web
 # Create the staticfiles directory. This avoids permission errors.
 RUN mkdir -p $APPUSER_HOME/static_cdn/static_root \
 && mkdir -p $APPUSER_HOME/static_cdn/media_root \
-&& mkdir -p $APPUSER_HOME/static_cdn/protected_media
+&& mkdir -p $APPUSER_HOME/static_cdn/protected_media \
+&& mkdir -p $APP_HOME/static_webapp
 
 WORKDIR $APP_HOME
 
