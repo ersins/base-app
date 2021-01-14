@@ -10,7 +10,7 @@ RUN apt-get update \
 RUN useradd --user-group --create-home --no-log-init --shell /bin/bash appuser
 
 ENV APPUSER_HOME=/home/appuser
-ENV APP_HOME=/home/appuser/web
+ENV APP_HOME=/home/appuser/webapp
 
 # Create the staticfiles directory. This avoids permission errors.
 RUN mkdir -p $APPUSER_HOME/static_cdn/static_root \

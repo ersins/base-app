@@ -10,7 +10,7 @@ RUN apt-get update \
 RUN useradd --user-group --create-home --no-log-init --shell /bin/bash appuser
 
 ENV APPUSER_HOME=/home/appuser
-ENV APP_HOME=/home/appuser/web
+ENV APP_HOME=/home/appuser/webapp
 
 # Create the staticfiles directory. This avoids permission errors.
 RUN mkdir -p $APPUSER_HOME/static_cdn/static_root \
@@ -20,9 +20,9 @@ RUN mkdir -p $APPUSER_HOME/static_cdn/static_root \
 
 WORKDIR $APP_HOME
 
-COPY requirements.txt $APP_HOME
+COPY requirements.prod.txt $APP_HOME
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.prod.txt
 
 COPY . $APP_HOME
 
@@ -30,4 +30,4 @@ RUN chown -R appuser:appuser $APPUSER_HOME
 
 USER appuser:appuser
 
-ENTRYPOINT ["/home/appuser/web/entrypoint.sh"]
+ENTRYPOINT ["/home/appuser/webapp/entrypoint.prod.sh"]
