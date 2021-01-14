@@ -30,4 +30,4 @@ RUN chown -R appuser:appuser $APPUSER_HOME
 
 USER appuser:appuser
 
-ENTRYPOINT ["/home/appuser/webapp/entrypoint.sh"]
+ENTRYPOINT ["/home/appuser/web/entrypoint.sh"]

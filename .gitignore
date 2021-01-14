@@ -106,6 +106,9 @@ celerybeat.pid
 
 # Environments
 .env
+.env.db
+.env.db.prod
+.env.prod
 .venv
 env/
 venv/
@@ -145,3 +148,9 @@ cython_debug/
 *.ori
 *.orig
 *.tmp
+
+
+# Kullanıcı tanımları
+
+app/static_cdn/static_root/
+app/static_cdn/media_root/

@@ -1,52 +1,39 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  db:
-    container_name: postgresdb
-    image: postgres:latest
-    restart: always
+  web:
+    container_name: django
+    build: src/
+    command: >
+      python manage.py runserver 0.0.0.0:8000
     env_file:
       - .env
     ports:
-      - 5432:5432
+      - "8000:8000"
+    depends_on:
+      - db
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - ./src/:/home/appuser/webapp/
+      - ./static_cdn/static_root/:/home/appuser/static_cdn/static_root/
+      - ./static_cdn/media_root/:/home/appuser/static_cdn/media_root/
 
   adminer:
     container_name: adminer
     image: adminer
     restart: always
     ports:
-      - 8080:8080
-  web:
-    container_name: django
-    build: src/
-    command: >
-      gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers=4
-    env_file:
-      - .env
-    expose:
-      - 8000
-    depends_on:
-      - db
-    volumes:
-      - staticfiles:/home/appuser/static_cdn/static_root/
-      - mediafiles:/home/appuser/static_cdn/media_root/
-  nginx:
-    container_name: nginx
-    image: nginx:mainline-alpine
+      - "8080:8080"
+
+  db:
+    container_name: postgresdb
+    image: postgres:latest
     restart: always
+    env_file:
+      - .env.db
     ports:
-      - 8001:80
+      - "5432:5432"
     volumes:
-      - ./nginx:/etc/nginx/conf.d
-      - staticfiles:/home/appuser/static_cdn/static_root/
-      - mediafiles:/home/appuser/static_cdn/media_root/
-    depends_on:
-      - web
+      - postgres-data:/var/lib/postgresql/data
 
 volumes:
   postgres-data:
-  staticfiles:
-  mediafiles:
-  redis-data:
