@@ -1,6 +1,6 @@
 # Yeni uygulamaları bu repodan oluşturuyorum.
 
-# Django uygulaması SECRET_KEY nasıl oluşturulu
+## Django uygulaması SECRET_KEY nasıl oluşturulu
 
 from django.core.management.utils import get_random_secret_key
 

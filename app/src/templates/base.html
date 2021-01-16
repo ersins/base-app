@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="tr">
+
+<head>
+  <!-- Required meta tags -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="author" content="SemiColonWeb" />
+  <title>{% block title %}Flexiwa...{% endblock %}</title>
+  {% include 'base/css.html' %}
+  {% block csslib %}{% endblock %}
+  {% block base_head %}{% endblock %}
+</head>
+
+<body class="stretched">
+  <!-- Document Wrapper
+============================================= -->
+  <div id="wrapper" class="clearfix">
+
+    {% include 'base/navbar.html' with brand_name='FlexiwaApp' %}
+    {% block page_title %}{% endblock %}
+
+    <section id="content">
+      <div class="content-wrap">
+        <div class="container clearfix">
+
+          <!-- Post Content
+          ============================================= -->
+          {% if messages %}
+          <div class="alert alert-success">
+            {% for message in messages %}
+
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <i class="icon-gift"></i>
+            <span{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} <a href="#" class="alert-link">
+                important: {% endif %}
+                {{ message }}</a>.
+              </span>
+              {% endfor %}
+          </div>
+          {% endif %}
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </section><!-- #content end -->
+    <!-- Footer
+    ============================================= -->
+    {% include 'base/footer.html' %}
+    <!-- #footer end -->
+  </div><!-- #wrapper end -->
+  <!-- Go To Top
+============================================= -->
+  <div id="gotoTop" class="icon-angle-up"></div>
+  {% include 'base/js.html' %}
+  {% block jslib %}{% endblock %}
+
+</body>
+
+</html>

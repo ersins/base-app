@@ -4,3 +4,6 @@ gunicorn
 psycopg2-binary
 pytz
 sqlparse
+django-crispy-forms
+celery
+redis

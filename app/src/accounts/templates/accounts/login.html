@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page_title %}
+    {% if request.path != home_url %}
+        <!-- Page Title
+        ============================================= -->
+        <section id="page-title" class="page-title-mini">
+
+            <div class="container clearfix">
+                <h1>Login</h1>
+                <span>A Short Page Title Tagline</span>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Shortcodes</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Page Titles</li>
+                </ol>
+            </div>
+
+        </section><!-- #page-title end -->
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+            <form id="login-form" name="login-form" class="nobottommargin" method="POST"> {% csrf_token %}
+
+                <h3>Login to your Account</h3>
+
+                {{ form|crispy }}
+
+                <div class="col_full nobottommargin">
+                    <button type="submit" class="button button-3d nomargin" id="login-form-submit"
+                            name="login-form-submit"
+                            value="login">Login
+                    </button>
+                    <a href="#" class="fright">Forgot Password?</a>
+                </div>
+
+            </form>
+
+{% endblock %}

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-from core.keyconfig import SecretsEnv, DatabaseEnv, FolderRoots, DebugEnv, AllowedHostEnv
+from core.keyconfig import SecretsEnv, DatabaseEnv, FolderRoots, DebugEnv, AllowedHostEnv, CeleryEnv, EpostaEnv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,6 +29,25 @@ DEBUG = DebugEnv.DEDUG
 # ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 ALLOWED_HOSTS = AllowedHostEnv.ALLOWED_HOSTS
 
+# Eposta Gönderim ayarları
+EMAIL_HOST = EpostaEnv.EMAIL_HOST
+EMAIL_HOST_USER = EpostaEnv.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = EpostaEnv.EMAIL_HOST_PASSWORD
+EMAIL_PORT = EpostaEnv.EMAIL_PORT
+EMAIL_USE_TLS = EpostaEnv.EMAIL_USE_TLS
+
+DEFAULT_FROM_EMAIL = 'Klikya eCommerce <esenzek@gmail.com>'
+
+BASE_URL = '127.0.0.1:8000'
+
+MANAGERS = (
+    ('Ersin Senzek', "ersinsenzek@gmail.com"),
+)
+ADMINS = MANAGERS
+
+# User activation Süresi 7 olarak ayarlandı
+
+DEFAULT_ACTIVATION_DAYS = 7
 
 # Application definition
 
@@ -39,7 +58,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'crispy_forms',
+
+    'accounts.apps.AccountsConfig',
 ]
+
+AUTH_USER_MODEL = 'accounts.User'  # changes the built-in user model to ours
+LOGIN_URL = '/login/'
+LOGIN_URL_REDIRECT = '/'
+LOGOUT_URL = '/logout/'
+
+FORCE_SESSION_TO_ONE = False
+FORCE_INACTIVE_USER_END_SESSION = False
+
+# Redis url
+# CELERY_BROKER_URL = 'amqp://esmayan:1qazxsw234@localhost:5672/pydev-vhost'
+CELERY_BROKER_URL = CeleryEnv.CELERY_BROKER
+CELERY_RESULT_BACKEND = CeleryEnv.CELERY_BACKEND
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

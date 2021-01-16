@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block page_title %}
+    {% if request.path != home_url %}
+        <!-- Page Title
+        ============================================= -->
+        <section id="page-title" class="page-title-mini">
+
+            <div class="container clearfix">
+                <h1>Register</h1>
+                <span>A Short Page Title Tagline</span>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Shortcodes</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Page Titles</li>
+                </ol>
+            </div>
+
+        </section><!-- #page-title end -->
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+    <h1>Register</h1>
+    <form method='POST'> {% csrf_token %}
+        {{ form }}
+        <button type='submit' class='btn btn-default'>Submit</button>
+    </form>
+{% endblock %}

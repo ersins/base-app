@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block page_title %}
+    {% if request.path != home_url %}
+        <!-- Page Title
+        TODO Bu alan include olarak ayarlanacak
+        ============================================= -->
+        <section id="page-title" class="page-title-mini">
+
+            <div class="container clearfix">
+                <h1>{% if title %}{{ title }}{% endif %}</h1>
+                <span>A Short Page Title Tagline</span>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Shortcodes</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Page Titles</li>
+                </ol>
+            </div>
+
+        </section><!-- #page-title end -->
+    {% endif %}
+
+{% endblock %}
+{% block content %}
+
+
+                    <form method='POST' action='{% if action_url %}{{ action_url }}{% endif %}'> {% csrf_token %}
+                        {% if next_url %}
+                            <input type='hidden' name='next' value='{{ next_url }}'/>
+                        {% endif %}
+                        <label for='email'>Email</label>
+                        <input type='text' id='email' class='form-control disabled' value='{{ request.user.email }}'
+                               disabled="disabled"/><span class='help-text'>Cannot change email</span><br/>
+                        {{ form|crispy }}
+                        <button type='submit' class='button button-3d nomargin'>Save</button>
+                        <a class="button button-3d nomargin" href='{% url "password_change" %}'>Change Password</a>
+                    </form>
+
+
+        <div class="w-100 line d-block d-md-none"></div>
+
+        <div class="col-md-3 clearfix">
+            {% if request.user %}
+                {% include 'accounts/snippets/profile-navbar.html' %}
+            {% endif %}
+
+            {% if request.user.about_me %}
+                {% include 'accounts/snippets/sidebar-about-me.html' with about_me=request.user.about_me title='About Me' %}
+            {% endif %}
+
+
+        </div>
+
+
+{% endblock %}

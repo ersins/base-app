@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_title %}
+    {% if request.path != home_url %}
+        <!-- Page Title
+        ============================================= -->
+        <section id="page-title" class="page-title-mini">
+
+            <div class="container clearfix">
+                <h1>Account Home</h1>
+                <span>A Short Page Title Tagline</span>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Shortcodes</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Page Titles</li>
+                </ol>
+            </div>
+
+        </section><!-- #page-title end -->
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="row clearfix">
+
+        <div class="col-md-9">
+
+            <img src="{% static 'img/icons/avatar.jpg' %}"
+                 class="alignleft img-circle img-thumbnail notopmargin nobottommargin"
+                 alt="Avatar" style="max-width: 84px;">
+
+            <div class="heading-block noborder">
+                <h3>{{ request.user.name }} {{ request.user.surname }}</h3>
+                <span>Your Profile Bio</span>
+            </div>
+
+            <div class="clear"></div>
+
+            </div>
+
+        </div>
+
+        <div class="w-100 line d-block d-md-none"></div>
+
+        <div class="col-md-3 clearfix">
+
+            {% if request.user %}
+                {% include 'accounts/snippets/profile-navbar.html' %}
+            {% endif %}
+
+            {% if request.user.about_me %}
+                {% include 'accounts/snippets/sidebar-about-me.html' with about_me=request.user.about_me title='About Me' %}
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
