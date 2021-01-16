@@ -9,50 +9,87 @@
 {% url 'account:home' as account_url %}
 {% url 'cart:home' as cart_url %}
 
-
-<!-- Top Bar
-============================================= -->
-<div class="top-links">
-    <ul>
-        <!-- TODO  -->
-
+<!--
+TODO Sayfa en üstünde yer alması için düzenlenecek...
         {% if request.user.is_authenticated %}
-            <li><a href="#">Account</a>
-                <ul>
-                    <li><a href="{{ account_url }}"><i class="icon-home" alt="Home"></i> Home</a></li>
-                    <li><a href="{{ logout_url }}"><i class="icon-line2-logout" alt="Logout"></i> Logout</a>
-                    </li>
-                </ul>
+        <li><a href="#">Account</a>
+          <ul>
+            <li><a href="{{ account_url }}"><i class="icon-home" alt="Home"></i> Home</a></li>
+            <li><a href="{{ logout_url }}"><i class="icon-line2-logout" alt="Logout"></i> Logout</a>
             </li>
+          </ul>
+        </li>
         {% else %}
-            <li><a href="{{ register_url }}">Register</a></li>
-            <li><a href="{{ login_url }}"><i class="icon-line2-login" alt="Logout"></i> Login</a></li>
+        <li><a href="{{ register_url }}">Register</a></li>
+        <li><a href="{{ login_url }}"><i class="icon-line2-login" alt="Logout"></i> Login</a></li>
+        {% endif %}
+-->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">Home</a>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Hesabım
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item {% if request.path == account_url %}current{% endif %}" href="{{ account_url }}">Sayfam</a></li>
+            <li><a class="dropdown-item" href="{% url 'password_change' %}">Şifre Değiştir</a></li>
+            <li><a class="dropdown-item" href="{{ account_url }}">Hesap Ayarları</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="{{ logout_url }}">Güvenli Çıkış</a></li>
+          </ul>
+        </li>
+
+
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == register_url %}active{% endif %}" href="{{ register_url }}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == login_url %}active{% endif %}" href="{{ login_url }}">Login</a>
+        </li>
+
+
         {% endif %}
 
-    </ul>
-</div><!-- .top-links end -->
 
 
-<ul>
-    {% if request.user.is_authenticated %}
+
+        <!--
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Account
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item {% if request.path == account_url %}current{% endif %}"
-                   href="{{ account_url }}">Home</a>
-                <a class="dropdown-item" href="{{ account_url }}#billing">Billing</a>
-                <a class="dropdown-item" href="{{ logout_url }}">Logout</a>
-            </div>
-            {% else %}
-        <li class="{% if request.path == register_url %}current{% endif %}">
-            <a class="nav-link" href="{{ register_url }}">Register</a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
         </li>
-        <li class="{% if request.path == login_url %}current{% endif %}">
-            <a class="nav-link" href="{{ login_url }}">Login</a>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
-    {% endif %}
-
-</ul>
+-->
+      </ul>
+    </div>
+  </div>
+</nav>

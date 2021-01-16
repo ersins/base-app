@@ -11,7 +11,7 @@ urlpatterns = [
 
     path('accounts/', RedirectView.as_view(url='/account')),
     path('account/', include('accounts.urls', namespace='account')),
-    path('accounts/', include('accounts.passwords.urls')),
+    path('accounts/', include('accounts.passwords.urls',)),
     path('login/', LoginView.as_view(), name='login'),
     path('register/guest', GuestRegisterView.as_view(), name='guest_register'),
     path('logout/', LogoutView.as_view(), name='logout'),
