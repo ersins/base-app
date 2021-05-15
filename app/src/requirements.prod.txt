@@ -7,3 +7,6 @@ sqlparse
 django-crispy-forms
 celery
 redis
+djangorestframework
+Markdown
+django-filter
